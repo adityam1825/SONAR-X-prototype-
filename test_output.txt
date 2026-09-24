@@ -1,0 +1,113 @@
+EXIT: 0
+STDOUT:
+============================= test session starts =============================
+platform win32 -- Python 3.13.5, pytest-9.1.1, pluggy-1.6.0 -- c:\Users\adity\OneDrive\Desktop\sonar\sonar-x\backend\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+django: version: 6.1.1, settings: config.settings_check (from env)
+rootdir: c:\Users\adity\OneDrive\Desktop\sonar\sonar-x
+configfile: pytest.ini
+plugins: django-4.14.0
+collecting ... collected 80 items
+
+tests/test_django_api.py::TestAuthentication::test_login_valid_credentials PASSED [  1%]
+tests/test_django_api.py::TestAuthentication::test_login_wrong_password PASSED [  2%]
+tests/test_django_api.py::TestAuthentication::test_protected_route_without_auth PASSED [  3%]
+tests/test_django_api.py::TestAuthentication::test_protected_route_with_valid_auth PASSED [  5%]
+tests/test_django_api.py::TestAuthentication::test_me_endpoint_returns_user_info PASSED [  6%]
+tests/test_django_api.py::TestAuthentication::test_invalid_token_rejected PASSED [  7%]
+tests/test_django_api.py::TestSurveyAPI::test_list_surveys PASSED        [  8%]
+tests/test_django_api.py::TestSurveyAPI::test_create_survey PASSED       [ 10%]
+tests/test_django_api.py::TestSurveyAPI::test_survey_detail PASSED       [ 11%]
+tests/test_django_api.py::TestSurveyAPI::test_survey_stats_no_fake_metrics PASSED [ 12%]
+tests/test_django_api.py::TestSurveyAPI::test_demo_surveys_endpoint PASSED [ 13%]
+tests/test_django_api.py::TestSurveyAPI::test_survey_not_found PASSED    [ 15%]
+tests/test_django_api.py::TestDetectionAPI::test_list_detections PASSED  [ 16%]
+tests/test_django_api.py::TestDetectionAPI::test_detection_detail_includes_fingerprint PASSED [ 17%]
+tests/test_django_api.py::TestDetectionAPI::test_detection_hazard_levels_valid PASSED [ 18%]
+tests/test_django_api.py::TestDetectionAPI::test_detection_filter_by_survey PASSED [ 20%]
+tests/test_django_api.py::TestDetectionAPI::test_detection_not_found PASSED [ 21%]
+tests/test_django_api.py::TestVerificationAPI::test_confirm_detection PASSED [ 22%]
+tests/test_django_api.py::TestVerificationAPI::test_hazard_downgrade_without_comment_rejected PASSED [ 23%]
+tests/test_django_api.py::TestVerificationAPI::test_hazard_downgrade_with_comment_accepted PASSED [ 25%]
+tests/test_django_api.py::TestVerificationAPI::test_invalid_decision_rejected PASSED [ 26%]
+tests/test_django_api.py::TestVerificationAPI::test_verification_history_recorded PASSED [ 27%]
+tests/test_django_api.py::TestTemporalAPI::test_temporal_overview_structure PASSED [ 28%]
+tests/test_django_api.py::TestTemporalAPI::test_temporal_detail_not_found PASSED [ 30%]
+tests/test_django_api.py::TestTemporalAPI::test_temporal_status_values_are_valid PASSED [ 31%]
+tests/test_django_api.py::TestExportAPI::test_export_summary_structure PASSED [ 32%]
+tests/test_django_api.py::TestExportAPI::test_geojson_rfc7946_compliance PASSED [ 33%]
+tests/test_django_api.py::TestExportAPI::test_csv_no_formula_injection PASSED [ 35%]
+tests/test_django_api.py::TestExportAPI::test_csv_no_gps_shows_empty_not_zero PASSED [ 36%]
+tests/test_django_api.py::TestExportAPI::test_kml_valid_xml PASSED       [ 37%]
+tests/test_django_api.py::TestEvaluationAPI::test_no_runs_returns_not_evaluated PASSED [ 38%]
+tests/test_django_api.py::TestEvaluationAPI::test_no_runs_message_is_informative PASSED [ 40%]
+tests/test_django_api.py::TestEvaluationAPI::test_latest_run_not_evaluated PASSED [ 41%]
+tests/test_django_api.py::TestEvaluationAPI::test_no_hardcoded_accuracy_in_response PASSED [ 42%]
+tests/test_exports.py::TestGeoJSONIntegrity::test_geojson_structure PASSED [ 43%]
+tests/test_exports.py::TestGeoJSONIntegrity::test_geojson_includes_data_source PASSED [ 45%]
+tests/test_exports.py::TestGeoJSONIntegrity::test_demo_label_present PASSED [ 46%]
+tests/test_exports.py::TestCSVIntegrity::test_no_formula_injection PASSED [ 47%]
+tests/test_exports.py::TestCSVIntegrity::test_csv_has_required_columns PASSED [ 48%]
+tests/test_exports.py::TestCSVIntegrity::test_empty_coords_not_fabricated PASSED [ 50%]
+tests/test_exports.py::TestEvaluationIntegrity::test_not_evaluated_when_no_runs PASSED [ 51%]
+tests/test_exports.py::TestEvaluationIntegrity::test_no_fake_metrics PASSED [ 52%]
+tests/test_fingerprint_engine.py::TestFingerprintEngine::test_basic_extraction PASSED [ 53%]
+tests/test_fingerprint_engine.py::TestFingerprintEngine::test_empty_target_returns_zero PASSED [ 55%]
+tests/test_fingerprint_engine.py::TestFingerprintEngine::test_high_backscatter_target PASSED [ 56%]
+tests/test_fingerprint_engine.py::TestFingerprintEngine::test_nadir_exclusion_no_crash PASSED [ 57%]
+tests/test_fingerprint_engine.py::TestFingerprintEngine::test_status_thresholds PASSED [ 58%]
+tests/test_fusion.py::TestEvidenceFusion::test_high_scores_low_risk PASSED [ 60%]
+tests/test_fusion.py::TestEvidenceFusion::test_low_scores_high_risk PASSED [ 61%]
+tests/test_fusion.py::TestEvidenceFusion::test_weights_normalize PASSED  [ 62%]
+tests/test_fusion.py::TestEvidenceFusion::test_zero_scores_give_zero_evidence PASSED [ 63%]
+tests/test_fusion.py::TestEvidenceFusion::test_note_mentions_not_validated PASSED [ 65%]
+tests/test_haversine.py::TestHaversineDistance::test_same_point_is_zero PASSED [ 66%]
+tests/test_haversine.py::TestHaversineDistance::test_known_distance PASSED [ 67%]
+tests/test_haversine.py::TestHaversineDistance::test_short_distance PASSED [ 68%]
+tests/test_haversine.py::TestHaversineDistance::test_symmetry PASSED     [ 70%]
+tests/test_haversine.py::TestHaversineDistance::test_bearing_north PASSED [ 71%]
+tests/test_haversine.py::TestHaversineDistance::test_bearing_east PASSED [ 72%]
+tests/test_hazard_engine.py::TestHazardEngine::test_natural_formation_no_hazard PASSED [ 73%]
+tests/test_hazard_engine.py::TestHazardEngine::test_sonar_artifact_no_hazard PASSED [ 75%]
+tests/test_hazard_engine.py::TestHazardEngine::test_large_unknown_caution PASSED [ 76%]
+tests/test_hazard_engine.py::TestHazardEngine::test_never_identifies_specific_object PASSED [ 77%]
+tests/test_hazard_engine.py::TestHazardEngine::test_limited_data_flag PASSED [ 78%]
+tests/test_preprocessor.py::TestNadirDetection::test_nadir_is_detected PASSED [ 80%]
+tests/test_preprocessor.py::TestNadirDetection::test_nadir_override_used PASSED [ 81%]
+tests/test_preprocessor.py::TestNadirDetection::test_original_not_modified PASSED [ 82%]
+tests/test_preprocessor.py::TestGainCorrection::test_gain_applied_when_not_precorrected PASSED [ 83%]
+tests/test_preprocessor.py::TestGainCorrection::test_gain_skipped_when_precorrected PASSED [ 85%]
+tests/test_preprocessor.py::TestSlantRangeCorrection::test_slant_range_applied_with_metadata PASSED [ 86%]
+tests/test_preprocessor.py::TestSlantRangeCorrection::test_slant_range_skipped_without_altitude PASSED [ 87%]
+tests/test_preprocessor.py::TestSlantRangeCorrection::test_slant_range_skipped_without_range_scale PASSED [ 88%]
+tests/test_preprocessor.py::TestQualityAssessment::test_quality_score_range PASSED [ 90%]
+tests/test_preprocessor.py::TestQualityAssessment::test_quality_level_valid PASSED [ 91%]
+tests/test_preprocessor.py::TestQualityAssessment::test_low_quality_image PASSED [ 92%]
+tests/test_temporal_engine.py::TestTemporalMatcher::test_no_candidates_not_detected PASSED [ 93%]
+tests/test_temporal_engine.py::TestTemporalMatcher::test_nearby_similar_potentially_relocated PASSED [ 95%]
+tests/test_temporal_engine.py::TestTemporalMatcher::test_no_gps_requires_verification PASSED [ 96%]
+tests/test_temporal_engine.py::TestTemporalMatcher::test_fingerprint_similarity_cosine PASSED [ 97%]
+tests/test_temporal_engine.py::TestTemporalMatcher::test_haversine_local PASSED [ 98%]
+tests/test_temporal_engine.py::TestTemporalMatcher::test_not_detected_no_movement_claim PASSED [100%]
+
+============================== warnings summary ===============================
+tests/test_django_api.py: 34 warnings
+  c:\Users\adity\OneDrive\Desktop\sonar\sonar-x\backend\.venv\Lib\site-packages\django\core\handlers\base.py:63: UserWarning: No directory at: C:\Users\adity\OneDrive\Desktop\sonar\sonar-x\backend\staticfiles\
+    mw_instance = middleware(adapted_handler)
+
+tests/test_preprocessor.py::TestQualityAssessment::test_low_quality_image
+  c:\Users\adity\OneDrive\Desktop\sonar\sonar-x\backend\.venv\Lib\site-packages\numpy\_core\fromnumeric.py:3862: RuntimeWarning: Mean of empty slice
+    return _methods._mean(a, axis=axis, dtype=dtype,
+
+tests/test_preprocessor.py::TestQualityAssessment::test_low_quality_image
+  c:\Users\adity\OneDrive\Desktop\sonar\sonar-x\backend\.venv\Lib\site-packages\numpy\_core\_methods.py:142: RuntimeWarning: invalid value encountered in scalar divide
+    ret = ret.dtype.type(ret / rcount)
+
+tests/test_preprocessor.py::TestQualityAssessment::test_low_quality_image
+  c:\Users\adity\OneDrive\Desktop\sonar\sonar-x\tests\..\ai\preprocessing\sonar_preprocessor.py:288: RuntimeWarning: invalid value encountered in cast
+    corrected = np.clip(corrected, 0, 255).astype(np.uint8)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 80 passed, 37 warnings in 0.80s =======================
+
+STDERR (last 30 lines):
