@@ -1,292 +1,478 @@
 # SONAR-X
 
-**Physics-Aware Explainable Marine Debris Intelligence System**
+## Physics-Aware Explainable Marine Debris Intelligence System
 
-> Problem Statement SIH26057 — AI-Powered Automated Underwater Marine Debris and Anomaly Detection System using Side-Scan Sonar  
-> Theme: Marine & Ocean | Team: Team Kurukshetra
+> **DETECT → VERIFY → EXPLAIN → MAP → TRACK**
 
----
+SONAR-X is an **automated AI-powered Side-Scan Sonar intelligence
+system** for detecting, analysing, classifying, explaining and
+monitoring underwater marine debris and sonar anomalies.
 
-## Overview
+### Core principle: Upload Once, Automate Everything
 
-SONAR-X is an end-to-end sonar intelligence platform implementing the workflow:
+The user performs one primary action:
 
-```
-DETECT → FINGERPRINT → FUSE → CLASSIFY → HAZARD → MAP → VERIFY → TRACK
-```
+**UPLOAD SIDE-SCAN SONAR DATA**
 
-The central differentiator is a sonar-aware verification layer that analyses seven acoustic cues before producing a final classification, rather than relying on a single object detector output.
+SONAR-X then automatically performs:
 
----
+**INGEST → METADATA EXTRACTION → VALIDATION → PREPROCESSING → AI
+DETECTION → SONAR FINGERPRINT → EVIDENCE FUSION → CLASSIFICATION →
+HAZARD ASSESSMENT → GEOLOCATION → TEMPORAL ANALYSIS → HUMAN VERIFICATION
+→ AUTOMATIC PDF REPORT**
 
-## Architecture
+------------------------------------------------------------------------
 
-```
-sonar-x/
-├── frontend/          React + Vite + TypeScript + Tailwind
-├── backend/           Django + DRF + JWT + SQLite/PostgreSQL
-├── ai/                Python CV/AI engines
-│   ├── preprocessing/ Sonar preprocessing pipeline
-│   ├── fingerprint/   Seven-cue Sonar Fingerprint Engine
-│   ├── fusion/        Evidence Fusion Engine
-│   ├── hazard/        Precautionary Hazard Engine
-│   ├── temporal/      Temporal Matching Engine
-│   ├── detection/     Classical CV fallback detector
-│   ├── demo/          Deterministic demo engine + synthetic images
-│   └── report_generator.py  PDF report generation
-├── tests/             80 tests (unit + API)
-└── demo_data/         Demo dataset metadata
-```
+## 1. Problem
 
----
+Side-Scan Sonar imagery can contain acoustic noise, seabed variation,
+geometric distortion, ambiguous targets, natural formations and sonar
+artifacts. A detector-only approach can therefore produce false
+positives and does not adequately explain why a target was considered
+debris.
 
-## Quick Start (Development)
+SONAR-X combines **AI detection, sonar-specific computer vision,
+multi-cue evidence fusion, explainability, geospatial intelligence and
+temporal monitoring**.
 
-### Prerequisites
+------------------------------------------------------------------------
 
-- Python 3.11+
-- Node.js 20+
-- PostgreSQL 15+ (optional — SQLite used for development/demo)
+## 2. Complete Automated Workflow
 
-### Backend Setup
-
-```bash
-cd sonar-x/backend
-
-# Create virtual environment
-python -m venv .venv
-.venv\Scripts\activate        # Windows
-source .venv/bin/activate     # Linux/Mac
-
-# Install dependencies
-pip install -r requirements.txt
-pip install reportlab==4.2.0  # PDF generation
-
-# Run migrations (SQLite for demo)
-python manage.py migrate --settings=config.settings_check
-
-# Seed demo data
-python manage.py seed_demo --settings=config.settings_check
-
-# Start server
-python manage.py runserver 8000 --settings=config.settings_check
-```
-
-### Frontend Setup
-
-```bash
-cd sonar-x/frontend
-
-# Install dependencies
-npm install --legacy-peer-deps
-
-# Start dev server
-npm run dev
-# Starts at http://localhost:5173 (or 5174 if port in use)
-
-# Production build
-npm run build
-```
-
----
-
-## Demo Login
-
-```
-URL:      http://localhost:5173
-Email:    demo@sonarx.ai
-Password: demo123
+``` text
+USER
+  |
+  v
+UPLOAD SONAR IMAGE / DATA
+  |
+  v
+AUTOMATIC SURVEY CREATION
+  |
+  v
+METADATA EXTRACTION + PROVENANCE
+  |
+  v
+AUTOMATIC VALIDATION
+  |
+  v
+SONAR PREPROCESSING
+  |
+  v
+PYTORCH + YOLO CANDIDATE DETECTION
+  |
+  v
+ROI EXTRACTION
+  |
+  v
+7-CUE SONAR FINGERPRINT
+  |
+  v
+EVIDENCE FUSION
+  |
+  v
+CLASSIFICATION
+  |
+  +--> MARINE DEBRIS
+  +--> NATURAL FORMATION
+  +--> SONAR ARTIFACT
+  +--> UNKNOWN ANOMALY
+  |
+  v
+EXPLAINABILITY + FALSE-POSITIVE RISK
+  |
+  v
+HAZARD ASSESSMENT
+  |
+  v
+GEOLOCATION / MAP WHEN AVAILABLE
+  |
+  v
+TEMPORAL INTELLIGENCE
+  |
+  v
+HUMAN VERIFICATION FOR UNCERTAIN CASES
+  |
+  v
+AUTOMATIC PDF SURVEY REPORT
 ```
 
----
+**No manual survey creation, no manual pipeline-stage execution and no
+manual report preparation are required in the automated upload
+workflow.**
 
-## PostgreSQL Configuration (Production)
+------------------------------------------------------------------------
 
-Copy `.env.example` to `.env` and fill in:
+## 3. Dashboard
 
-```env
-DB_NAME=sonarx_db
-DB_USER=sonarx
-DB_PASSWORD=your_password
-DB_HOST=localhost
-DB_PORT=5432
-DJANGO_SECRET_KEY=your-secret-key
-JWT_SECRET=your-jwt-secret
+The dashboard provides an operational overview of:
+
+-   Total surveys
+-   Total detections
+-   Marine debris
+-   Natural formations
+-   Sonar artifacts
+-   Unknown anomalies
+-   Hazard flags
+-   Pending verification
+-   Processing-engine status
+-   Temporal intelligence
+-   Recent survey activity
+
+------------------------------------------------------------------------
+
+## 4. Backend Architecture
+
+The backend is built with **Python, Django and Django REST Framework**.
+
+When the upload reaches the ingestion API, the backend automatically:
+
+1.  Receives the sonar file.
+2.  Creates the survey record.
+3.  Extracts available metadata.
+4.  Validates the input.
+5.  Starts the processing pipeline.
+6.  Runs preprocessing.
+7.  Runs AI detection.
+8.  Generates sonar fingerprints.
+9.  Performs evidence fusion.
+10. Classifies detections.
+11. Performs precautionary hazard assessment.
+12. Processes available geospatial metadata.
+13. Performs temporal comparison when historical surveys exist.
+14. Stores the results.
+15. Generates the final PDF report.
+
+Conceptually:
+
+``` text
+POST /api/surveys/ingest/
+        |
+        v
+Ingestion Service
+        |
+        +--> Metadata Extractor
+        +--> Validation
+        +--> Preprocessing
+        +--> AI Inference
+        +--> Fingerprint Engine
+        +--> Evidence Fusion
+        +--> Classification
+        +--> Hazard Engine
+        +--> Geospatial Processing
+        +--> Temporal Engine
+        +--> Report Generator
 ```
 
-Run with production settings:
-```bash
-python manage.py migrate
-python manage.py seed_demo
-python manage.py runserver 8000
+------------------------------------------------------------------------
+
+## 5. AI and Computer Vision
+
+### YOLO + PyTorch
+
+SONAR-X uses a **YOLO-based detection pipeline implemented with
+PyTorch** for candidate detection.
+
+YOLO identifies potential target regions. It is intentionally **not the
+complete intelligence layer**.
+
+The detected regions are passed to the sonar-specific analysis pipeline
+for deeper verification.
+
+### OpenCV
+
+OpenCV handles computer-vision operations including:
+
+-   Image loading
+-   Resizing
+-   Normalization
+-   Denoising
+-   Contrast enhancement
+-   ROI processing
+-   Image transformations
+
+### NumPy
+
+NumPy supports numerical processing and feature computation throughout
+the sonar pipeline.
+
+------------------------------------------------------------------------
+
+## 6. Seven-Cue Sonar Fingerprint
+
+Every candidate can be analysed using seven sonar-specific evidence
+cues:
+
+1.  **Backscatter / Intensity**
+2.  **Texture**
+3.  **Geometry**
+4.  **Acoustic Shadow**
+5.  **Object-Shadow Relationship**
+6.  **Seabed Context**
+7.  **Signal Quality**
+
+These cues provide information beyond a simple bounding box.
+
+------------------------------------------------------------------------
+
+## 7. Evidence Fusion and Explainability
+
+The Evidence Fusion Engine combines the available sonar cues to produce
+an explainable result.
+
+The classification categories are:
+
+-   **Marine Debris**
+-   **Natural Formation**
+-   **Sonar Artifact**
+-   **Unknown Anomaly**
+
+The result can include:
+
+-   Classification
+-   Confidence
+-   Evidence score
+-   Supporting evidence
+-   Opposing evidence
+-   False-positive risk
+-   Processing information
+-   Geospatial information when available
+
+The objective is to move from:
+
+> **"The model detected something."**
+
+to:
+
+> **"The system detected a candidate, analysed sonar-specific evidence
+> and explained the basis and uncertainty of the result."**
+
+------------------------------------------------------------------------
+
+## 8. Hazard Intelligence
+
+SONAR-X provides precautionary hazard assessment:
+
+-   `NONE`
+-   `CAUTION`
+-   `HIGH CAUTION`
+
+The hazard layer is decision support, not definitive identification of a
+specific hazardous object.
+
+High-caution observations can be routed to human verification.
+
+------------------------------------------------------------------------
+
+## 9. Geospatial Intelligence
+
+The system uses:
+
+-   **PostgreSQL** for structured application data
+-   **PostGIS** for geospatial data
+-   **GeoJSON** for geographic interchange
+-   **Leaflet** for map visualization
+-   **CSV / KML / GeoJSON** exports
+
+Coordinates are used only when legitimate acquisition/navigation
+metadata is available. Missing metadata is not fabricated.
+
+------------------------------------------------------------------------
+
+## 10. Temporal Intelligence
+
+For repeat surveys, SONAR-X compares historical and new detections using
+factors such as:
+
+-   Spatial proximity
+-   Classification
+-   Geometry
+-   Sonar fingerprint similarity
+
+Possible temporal states include:
+
+-   **STILL PRESENT**
+-   **NOT DETECTED**
+-   **POTENTIALLY RELOCATED**
+-   **POSSIBLE MATCH**
+-   **NEW DETECTION**
+-   **REQUIRES VERIFICATION**
+
+A potentially relocated observation remains a hypothesis requiring
+verification; non-detection does not automatically prove movement or
+removal.
+
+------------------------------------------------------------------------
+
+## 11. Human-in-the-Loop
+
+The goal is not to eliminate expert responsibility.
+
+The goal is to **automate repetitive analysis and reserve human
+attention for uncertain or operationally important cases**.
+
+Human verification can be used for:
+
+-   Unknown anomalies
+-   High-risk observations
+-   Low-confidence detections
+-   Potentially relocated objects
+-   Hard negatives
+-   Operational confirmation
+
+------------------------------------------------------------------------
+
+## 12. Automatic PDF Reporting
+
+After processing, SONAR-X automatically generates a structured survey
+intelligence report containing, where available:
+
+### Survey Information
+
+-   Survey ID
+-   Survey name
+-   Acquisition information
+-   Metadata
+
+### Processing Information
+
+-   Validation
+-   Preprocessing
+-   Detection
+-   Fingerprint generation
+-   Evidence fusion
+-   Classification
+
+### Detection Information
+
+-   Detection ID
+-   Classification
+-   Confidence
+-   Evidence
+-   Risk information
+-   Fingerprint information
+-   Hazard information
+-   Geospatial information
+
+The user does not have to manually compile this report.
+
+------------------------------------------------------------------------
+
+## 13. Technology Stack
+
+  Layer                  Technology
+  ---------------------- --------------------------
+  Frontend               React + TypeScript
+  Build                  Vite
+  Styling                Tailwind CSS
+  Maps                   Leaflet
+  Backend                Python + Django
+  API                    Django REST Framework
+  AI Framework           PyTorch
+  Detection              YOLO-based pipeline
+  Computer Vision        OpenCV
+  Numerical Processing   NumPy
+  Database               PostgreSQL
+  Geospatial Database    PostGIS
+  Geographic Format      GeoJSON
+  Exports                CSV / KML / GeoJSON
+  Reporting              Automated PDF generation
+
+------------------------------------------------------------------------
+
+## 14. Automation Advantage
+
+SONAR-X follows an **Upload Once → Automate Everything** architecture.
+
+The user's routine responsibility is reduced to:
+
+### **1. Upload the Side-Scan Sonar data.**
+
+The system automatically performs:
+
+**Ingest → Extract → Validate → Preprocess → Detect → Fingerprint → Fuse
+→ Classify → Assess → Map → Track → Verify → Report**
+
+The project targets **up to approximately 90% reduction in routine
+manual workflow effort**, while retaining human verification for
+uncertain and operationally important observations.
+
+------------------------------------------------------------------------
+
+## 15. Key Differentiator
+
+SONAR-X is not simply a YOLO-based detector.
+
+It combines:
+
+``` text
+AI Detection
+      +
+Sonar-Specific Processing
+      +
+7-Cue Sonar Fingerprint
+      +
+Evidence Fusion
+      +
+Explainable Classification
+      +
+Hazard Awareness
+      +
+Geospatial Intelligence
+      +
+Temporal Monitoring
+      +
+Human Verification
+      +
+Automatic Reporting
 ```
 
----
+This creates a complete chain from **raw sonar input to explainable
+marine intelligence**.
 
-## Docker
+------------------------------------------------------------------------
 
-```bash
-docker compose up --build
+## 16. Scientific Safeguards
+
+SONAR-X follows these safeguards:
+
+-   Missing metadata is not fabricated.
+-   GPS is only used when legitimate location information is available.
+-   Hazard flags are precautionary.
+-   Temporal disappearance does not automatically prove movement or
+    removal.
+-   Potential relocation requires verification.
+-   Prototype/demo data is not represented as field validation.
+-   Formal evaluation metrics are reported only when a documented
+    evaluation dataset is available.
+
+------------------------------------------------------------------------
+
+## 17. Project Vision
+
+SONAR-X aims to transform Side-Scan Sonar analysis from a largely manual
+inspection workflow into an **automated, explainable and traceable
+marine intelligence pipeline**.
+
+``` text
+RAW SONAR DATA
+      ↓
+AUTOMATED SCREENING
+      ↓
+EXPLAINABLE EVIDENCE
+      ↓
+VERIFICATION
+      ↓
+GEOSPATIAL + TEMPORAL INTELLIGENCE
+      ↓
+AUTOMATIC REPORT
 ```
 
-Services: frontend (port 3000), backend (port 8000), postgres.
+### SONAR-X
 
----
+**Detect. Verify. Explain. Map. Track.**
 
-## Running Tests
+**Team Kurukshetra**\
+**Smart India Hackathon 2026**
 
-```bash
-# From repo root
-python run_tests.py
-# Expected: 80 passed
-
-# API verification (requires server running on port 8000)
-cd backend
-python run_api_verify.py
-
-# Full demo verification
-python full_demo_verify.py
-
-# Scientific claims audit
-python scientific_audit.py
-```
-
----
-
-## Key Features
-
-### 1. Sonar-Specific Preprocessing
-
-Pipeline: Ingestion → Nadir Handling → Gain Correction → Slant-Range Correction → Noise Reduction → Contrast Enhancement → Quality Assessment
-
-- Nadir region estimated from across-track intensity profile when metadata unavailable (labelled ESTIMATED)
-- Slant-range correction applied only when altitude + range scale are available; otherwise clearly labelled NOT APPLIED
-- Original image never modified; processing produces a derivative
-- All steps show: APPLIED / SKIPPED / ESTIMATED with reason
-
-### 2. Seven-Cue Sonar Fingerprint
-
-Each detection receives a structured fingerprint:
-
-| Cue | Description |
-|-----|-------------|
-| Backscatter | Local acoustic intensity relative to seabed |
-| Texture | Image variance and entropy analysis |
-| Geometry | Shape, aspect ratio, contour regularity |
-| Acoustic Shadow | Dark region behind target |
-| Object-Shadow Relationship | Geometric consistency check |
-| Seabed Context | Target vs. surrounding seabed comparison |
-| Signal Quality | Preprocessing quality score |
-
-Each cue returns a score (0–100) and status (STRONG / MODERATE / WEAK / UNAVAILABLE).
-
-### 3. Evidence Fusion
-
-Configurable weighted fusion of seven cues into:
-- Evidence Score (prototype heuristic, NOT a probability)
-- False Positive Risk (LOW / MEDIUM / HIGH)
-
-Weights are demonstration values, not scientifically validated coefficients.
-
-### 4. Classification
-
-Four classes:
-- MARINE DEBRIS
-- NATURAL FORMATION  
-- SONAR ARTIFACT
-- UNKNOWN ANOMALY (valid result — not forced)
-
-### 5. Precautionary Hazard Assessment
-
-Levels: NONE / CAUTION / HIGH CAUTION
-
-The system says **"Potential Hazard — Do Not Disturb"**. It NEVER identifies specific objects as mines, bombs, munitions, or wrecks. Hazard assessment is precautionary only.
-
-### 6. Human Verification
-
-All detections pass through human verification before any operational action. Audit trail stores reviewer, decision, comment, timestamp. Hazard downgrade requires mandatory comment.
-
-### 7. Temporal Debris Tracking
-
-Tracks debris objects across repeat surveys using Haversine spatial filtering + fingerprint similarity scoring.
-
-Statuses:
-- STILL PRESENT — detected near original location
-- NOT DETECTED — not found (does NOT prove removal)
-- POTENTIALLY RELOCATED — nearby candidate with similar fingerprint (requires verification)
-- POSSIBLE MATCH / REQUIRES VERIFICATION
-
-The label **POTENTIALLY RELOCATED** is used until human verification confirms the case. A missing detection does NOT prove the object moved.
-
-### 8. Exports
-
-- GeoJSON (RFC 7946, WGS84, longitude-first)
-- KML (Google Earth compatible)
-- CSV (all detections, empty coords if unavailable, formula-injection protected)
-
-All exports include: data source, software version, survey ID, timestamp, disclaimer.
-
-### 9. Evaluation Metrics
-
-Evaluation page shows **NOT EVALUATED** when no genuine held-out evaluation run exists. No fake accuracy/precision/recall values are ever displayed.
-
----
-
-## Inference Modes
-
-| Mode | Description |
-|------|-------------|
-| DEMO | Deterministic cached results — works offline, no model needed |
-| CLASSICAL CV | Adaptive threshold + contour detection fallback — NOT a trained model |
-| YOLO | Trained model from `AI_MODEL_PATH` — optional |
-
-The UI always displays the inference mode clearly.
-
----
-
-## Scientific Constraints
-
-1. Side-scan sonar does NOT directly provide water temperature
-2. Conventional SSS is NOT a direct bathymetric sensor
-3. Missing detection does NOT prove debris was removed or moved
-4. POTENTIALLY RELOCATED requires a plausible nearby candidate
-5. Unknown Anomaly is a valid classification — not forced into debris
-6. Hazard assessment is precautionary — no specific object identification
-7. Demo/synthetic data is NOT field performance
-8. Evidence scores are prototype heuristics, NOT calibrated probabilities
-9. Evaluation metrics only appear when a genuine evaluation run exists
-
----
-
-## Environment Variables
-
-See `.env.example` for all configuration options.
-
----
-
-## Limitations
-
-- Image-based sonar input only (XTF/JSF raw ingestion is future scope)
-- Classical CV fallback is not a trained model
-- Slant-range correction requires altitude + range scale metadata
-- GPS coordinates require field calibration for accuracy
-- PDF reports require ReportLab (`pip install reportlab`)
-- No Redis/Celery in MVP (synchronous processing)
-- PostgreSQL requires setup; SQLite used for demo
-
----
-
-## Future Scope
-
-- Raw XTF/JSF ingestion
-- Trained marine debris YOLO model
-- PostGIS spatial queries
-- Celery async processing
-- Multi-survey temporal batch analysis
-- Uncertainty quantification
-- Calibrated probabilistic detection
-- Field validation dataset
-
----
-
-*SONAR-X Prototype v0.1.0 | Team Kurukshetra | SIH 2025 | Marine & Ocean Theme*
+**Problem Statement:** AI-Powered Automated Underwater Marine Debris and
+Anomaly Detection System using Side-Scan Sonar
